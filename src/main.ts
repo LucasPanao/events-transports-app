@@ -1,6 +1,11 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { environment } from '../src/environment/environment';
 import { AppComponent } from './app/app.component';
+import { importProvidersFrom } from '@angular/core';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment))),
+  ],
+}).catch((err) => console.error(err));
